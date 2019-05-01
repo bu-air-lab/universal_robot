@@ -8,15 +8,58 @@
   <!-- ur5e -->
   <xacro:include filename="$(find ur_e_description)/urdf/ur5e.urdf.xacro" />
 
+    <!-- gripper -->
+  <xacro:include filename="$(find robotiq_hande_gripper_description)/urdf/hande_gripper.urdf.xacro" />
+
   <!-- arm -->
   <xacro:ur5e_robot prefix="" joint_limited="false"/>
 
-  <link name="world" />
+ <link name="robotiq_coupler">
+    <visual>
+      <geometry>
+        <mesh filename="package://robotiq_hande_gripper_description/meshes/robotiq_85_coupler.stl" />
+      </geometry>
+      <material name="flat_black"/>
+    </visual>
+    <collision>
+      <geometry>
+        <mesh filename="package://robotiq_hande_gripper_description/meshes/robotiq_85_coupler.stl" />
+      </geometry>
+    </collision>
 
+  </link>
+
+
+ <joint name="robotiq_coupler_joint" type="fixed">
+    <origin xyz="0 0 0.004" rpy="0 0 ${-pi/2.0}" />
+    <parent link="tool0"/>
+    <child link="robotiq_coupler"/>
+</joint>
+
+
+ <xacro:robotiq_hande prefix=""/>
+
+
+  <joint name="ee_robotiq_joint" type="fixed">
+    <parent link="robotiq_coupler"/>
+    <child link="robotiq_hande_base_link"/>
+    <origin xyz="0 0 0.004" rpy="0 ${pi/2} ${pi}" />
+</joint>
+
+
+
+
+<!--
+  <link name="world" />
+-->
+
+<!--
   <joint name="world_joint" type="fixed">
     <parent link="world" />
     <child link = "base_link" />
     <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
   </joint>
+-->
+
 
 </robot>
