@@ -12,7 +12,7 @@
   <xacro:include filename="$(find robotiq_hande_gripper_description)/urdf/hande_gripper.urdf.xacro" />
 
   <!-- arm -->
-  <xacro:ur5e_robot prefix="" joint_limited="false"/>
+  <xacro:ur5e_robot prefix="" joint_limited="true"/>
 
  <link name="robotiq_coupler">
     <visual>
@@ -45,8 +45,6 @@
     <child link="robotiq_hande_base_link"/>
     <origin xyz="0 0 0.004" rpy="0 ${pi/2} ${pi}" />
 </joint>
-
-
 
 
 
